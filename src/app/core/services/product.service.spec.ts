@@ -1,7 +1,16 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import {
+  HttpClientTestingModule,
+  HttpTestingController
+} from '@angular/common/http/testing'
 import { TestBed } from '@angular/core/testing'
 import { environment } from 'src/environments/environment'
-import { Product, ProductCreateResponse, ProductDeleteResponse, ProductResponse, ProductUpdateResponse } from '../models/product.model'
+import {
+  Product,
+  ProductCreateResponse,
+  ProductDeleteResponse,
+  ProductResponse,
+  ProductUpdateResponse
+} from '../models/product.model'
 import { ProductService } from './product.service'
 
 describe('ProductService', () => {
@@ -16,7 +25,7 @@ describe('ProductService', () => {
       description: 'Test Description 1',
       logo: 'https://example.com/logo1.jpg',
       date_release: '2024-01-01',
-      date_revision: '2025-01-01'
+      date_revision: '2025-01-01',
     },
     {
       id: 'test-2',
@@ -24,14 +33,14 @@ describe('ProductService', () => {
       description: 'Test Description 2',
       logo: 'https://example.com/logo2.jpg',
       date_release: '2024-02-01',
-      date_revision: '2025-02-01'
-    }
+      date_revision: '2025-02-01',
+    },
   ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ProductService]
+      providers: [ProductService],
     });
     service = TestBed.inject(ProductService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -42,16 +51,16 @@ describe('ProductService', () => {
   });
 
   describe('Creation', () => {
-    it('should be created', () => {
+    it('debería ser creado', () => {
       expect(service).toBeTruthy();
     });
   });
 
   describe('getProducts', () => {
-    it('should retrieve products from the API', () => {
+    it('debería obtener productos desde la API', () => {
       const mockResponse: ProductResponse = { data: mockProducts };
 
-      service.getProducts().subscribe(products => {
+      service.getProducts().subscribe((products) => {
         expect(products).toEqual(mockProducts);
         expect(products.length).toBe(2);
       });
@@ -61,11 +70,11 @@ describe('ProductService', () => {
       req.flush(mockResponse);
     });
 
-    it('should update products subject when products are fetched', () => {
+    it('debería actualizar el subject de productos cuando se obtienen los productos', () => {
       const mockResponse: ProductResponse = { data: mockProducts };
       let emittedProducts: Product[] = [];
 
-      service.products$.subscribe(products => {
+      service.products$.subscribe((products) => {
         emittedProducts = products;
       });
 
@@ -77,35 +86,38 @@ describe('ProductService', () => {
       expect(emittedProducts).toEqual(mockProducts);
     });
 
-    it('should handle error when getting products', () => {
+    it('debería manejar error al obtener productos', () => {
       service.getProducts().subscribe({
         next: () => fail('Should have failed'),
         error: (error) => {
           expect(error.message).toContain('error inesperado');
-        }
+        },
       });
 
       const req = httpMock.expectOne(baseUrl);
-      req.flush('Server error', { status: 500, statusText: 'Internal Server Error' });
+      req.flush('Server error', {
+        status: 500,
+        statusText: 'Internal Server Error',
+      });
     });
   });
 
   describe('createProduct', () => {
-    it('should create a new product', () => {
-      const newProduct = { 
+    it('debería crear un nuevo producto', () => {
+      const newProduct = {
         id: 'new-product',
         name: 'New Product',
         description: 'New Description',
         logo: 'https://example.com/logo.jpg',
         date_release: '2024-03-01',
-        date_revision: '2025-03-01'
+        date_revision: '2025-03-01',
       };
       const mockResponse: ProductCreateResponse = {
         message: 'Product added successfully',
-        data: newProduct
+        data: newProduct,
       };
 
-      service.createProduct(newProduct).subscribe(product => {
+      service.createProduct(newProduct).subscribe((product) => {
         expect(product).toEqual(newProduct);
       });
 
@@ -120,21 +132,21 @@ describe('ProductService', () => {
       refreshReq.flush({ data: [newProduct] });
     });
 
-    it('should handle validation errors when creating product', () => {
-      const newProduct = { 
+    it('debería manejar errores de validación al crear producto', () => {
+      const newProduct = {
         id: 'invalid',
         name: 'New Product',
         description: 'New Description',
         logo: 'https://example.com/logo.jpg',
         date_release: '2024-03-01',
-        date_revision: '2025-03-01'
+        date_revision: '2025-03-01',
       };
 
       service.createProduct(newProduct).subscribe({
         next: () => fail('Should have failed'),
         error: (error) => {
           expect(error.message).toBeDefined();
-        }
+        },
       });
 
       const req = httpMock.expectOne(baseUrl);
@@ -146,21 +158,21 @@ describe('ProductService', () => {
   });
 
   describe('updateProduct', () => {
-    it('should update an existing product', () => {
+    it('debería actualizar un producto existente', () => {
       const productId = 'test-1';
       const updateData = {
         name: 'Updated Product',
         description: 'Updated Description',
         logo: 'https://example.com/updated-logo.jpg',
         date_release: '2024-04-01',
-        date_revision: '2025-04-01'
+        date_revision: '2025-04-01',
       };
       const mockResponse: ProductUpdateResponse = {
         message: 'Product updated successfully',
-        data: updateData
+        data: updateData,
       };
 
-      service.updateProduct(productId, updateData).subscribe(result => {
+      service.updateProduct(productId, updateData).subscribe((result) => {
         expect(result).toEqual(updateData);
       });
 
@@ -175,21 +187,21 @@ describe('ProductService', () => {
       refreshReq.flush({ data: mockProducts });
     });
 
-    it('should handle 404 error when updating non-existent product', () => {
+    it('debería manejar error 404 al actualizar producto inexistente', () => {
       const productId = 'non-existent';
       const updateData = {
         name: 'Updated Product',
         description: 'Updated Description',
         logo: 'https://example.com/logo.jpg',
         date_release: '2024-04-01',
-        date_revision: '2025-04-01'
+        date_revision: '2025-04-01',
       };
 
       service.updateProduct(productId, updateData).subscribe({
         next: () => fail('Should have failed'),
         error: (error) => {
           expect(error.message).toBe('Producto no encontrado');
-        }
+        },
       });
 
       const req = httpMock.expectOne(`${baseUrl}/${productId}`);
@@ -201,13 +213,13 @@ describe('ProductService', () => {
   });
 
   describe('deleteProduct', () => {
-    it('should delete a product', () => {
+    it('debería eliminar un producto', () => {
       const productId = 'test-1';
       const mockResponse: ProductDeleteResponse = {
-        message: 'Product removed successfully'
+        message: 'Product removed successfully',
       };
 
-      service.deleteProduct(productId).subscribe(message => {
+      service.deleteProduct(productId).subscribe((message) => {
         expect(message).toBe('Product removed successfully');
       });
 
@@ -221,14 +233,14 @@ describe('ProductService', () => {
       refreshReq.flush({ data: mockProducts });
     });
 
-    it('should handle error when deleting product', () => {
+    it('debería manejar error al eliminar producto', () => {
       const productId = 'non-existent';
 
       service.deleteProduct(productId).subscribe({
         next: () => fail('Should have failed'),
         error: (error) => {
           expect(error.message).toBe('Producto no encontrado');
-        }
+        },
       });
 
       const req = httpMock.expectOne(`${baseUrl}/${productId}`);
@@ -240,10 +252,10 @@ describe('ProductService', () => {
   });
 
   describe('verifyProductId', () => {
-    it('should return true when product exists', () => {
+    it('debería retornar true cuando el producto existe', () => {
       const productId = 'existing-id';
 
-      service.verifyProductId(productId).subscribe(exists => {
+      service.verifyProductId(productId).subscribe((exists) => {
         expect(exists).toBe(true);
       });
 
@@ -252,10 +264,10 @@ describe('ProductService', () => {
       req.flush(true);
     });
 
-    it('should return false when product does not exist', () => {
+    it('debería retornar false cuando el producto no existe', () => {
       const productId = 'non-existing-id';
 
-      service.verifyProductId(productId).subscribe(exists => {
+      service.verifyProductId(productId).subscribe((exists) => {
         expect(exists).toBe(false);
       });
 
@@ -263,70 +275,77 @@ describe('ProductService', () => {
       req.flush(false);
     });
 
-    it('should handle error when verifying product ID', () => {
+    it('debería manejar error al verificar ID de producto', () => {
       const productId = 'error-id';
 
       service.verifyProductId(productId).subscribe({
         next: () => fail('Should have failed'),
         error: (error) => {
           expect(error.message).toContain('error inesperado');
-        }
+        },
       });
 
       const req = httpMock.expectOne(`${baseUrl}/verification/${productId}`);
-      req.flush('Server error', { status: 500, statusText: 'Internal Server Error' });
+      req.flush('Server error', {
+        status: 500,
+        statusText: 'Internal Server Error',
+      });
     });
   });
 
   describe('getProductById', () => {
-    it('should return product when found', () => {
+    it('debería retornar producto cuando se encuentra', () => {
       // First populate the products
       service.getProducts().subscribe();
       const req = httpMock.expectOne(baseUrl);
       req.flush({ data: mockProducts });
 
       // Then test getProductById
-      service.getProductById('test-1').subscribe(product => {
+      service.getProductById('test-1').subscribe((product) => {
         expect(product).toEqual(mockProducts[0]);
       });
     });
 
-    it('should return undefined when product not found', () => {
+    it('debería retornar undefined cuando no se encuentra el producto', () => {
       // First populate the products
       service.getProducts().subscribe();
       const req = httpMock.expectOne(baseUrl);
       req.flush({ data: mockProducts });
 
       // Then test getProductById with non-existent ID
-      service.getProductById('non-existent').subscribe(product => {
+      service.getProductById('non-existent').subscribe((product) => {
         expect(product).toBeUndefined();
       });
     });
   });
 
   describe('Error handling', () => {
-    it('should handle network error (status 0)', () => {
+    it('debería manejar error de red (status 0)', () => {
       service.getProducts().subscribe({
         next: () => fail('Should have failed'),
         error: (error) => {
-          expect(error.message).toContain('No se puede conectar con el servidor');
-        }
+          expect(error.message).toContain(
+            'No se puede conectar con el servidor'
+          );
+        },
       });
 
       const req = httpMock.expectOne(baseUrl);
       req.flush('Network error', { status: 0, statusText: 'Network Error' });
     });
 
-    it('should handle client-side error', () => {
+    it('debería manejar error del lado del cliente', () => {
       service.getProducts().subscribe({
         next: () => fail('Should have failed'),
         error: (error) => {
           expect(error.message).toContain('Error:');
-        }
+        },
       });
 
       const req = httpMock.expectOne(baseUrl);
-      req.error(new ErrorEvent('Network error', { message: 'Client-side error' }));
+      req.error(
+        new ErrorEvent('Network error', { message: 'Client-side error' })
+      );
     });
   });
 });
