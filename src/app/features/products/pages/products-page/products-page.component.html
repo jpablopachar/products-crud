@@ -1,1 +1,37 @@
-<p>products-page works!</p>,
+<div class="products-page">
+    <div class="page-header">
+        <div class="search-container">
+            <input
+                type="text"
+                placeholder="Search..."
+                [(ngModel)]="searchTerm"
+                (input)="onSearch()"
+                class="search-input"
+            />
+        </div>
+        <button class="btn btn-primary add-button" routerLink="/products/add">
+            Agregar
+        </button>
+    </div>
+    <app-loading-skeleton *ngIf="isLoading"></app-loading-skeleton>
+    <div *ngIf="!isLoading" class="products-content">
+        <app-product-list
+            [products]="filteredProducts"
+            [itemsPerPage]="itemsPerPage"
+            (edit)="onEditProduct($event)"
+            (delete)="onDeleteProduct($event)"
+            (itemsPerPageChange)="onItemsPerPageChange($event)"
+        >
+        </app-product-list>
+    </div>
+    <app-confirmation-modal
+        [isVisible]="showDeleteModal"
+        [message]="deleteMessage"
+        (confirm)="confirmDelete()"
+        (cancel)="cancelDelete()"
+    >
+    </app-confirmation-modal>
+    <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+    </div>
+</div>

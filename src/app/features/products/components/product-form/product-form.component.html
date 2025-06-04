@@ -1,1 +1,164 @@
-<p>product-form works!</p>,
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+    <div class="form-row">
+        <div class="form-group">
+            <label for="id">ID *</label>
+            <input
+                type="text"
+                id="id"
+                formControlName="id"
+                [class.error]="isFieldInvalid('id')"
+                [readonly]="isEditMode"
+                maxlength="10"
+            />
+            <div class="error-message" *ngIf="isFieldInvalid('id')">
+                <div *ngIf="productForm.get('id')?.errors?.['required']">
+                    Este campo es requerido!
+                </div>
+                <div *ngIf="productForm.get('id')?.errors?.['minlength']">
+                    ID debe tener mínimo 3 caracteres!
+                </div>
+                <div *ngIf="productForm.get('id')?.errors?.['maxlength']">
+                    ID debe tener máximo 10 caracteres!
+                </div>
+                <div *ngIf="productForm.get('id')?.errors?.['uniqueId']">
+                    ID no válido!
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Nombre *</label>
+            <input
+                type="text"
+                id="name"
+                formControlName="name"
+                [class.error]="isFieldInvalid('name')"
+                maxlength="100"
+                placeholder="Tarjeta Crédito"
+            />
+            <div class="error-message" *ngIf="isFieldInvalid('name')">
+                <div *ngIf="productForm.get('name')?.errors?.['required']">
+                    Este campo es requerido!
+                </div>
+                <div *ngIf="productForm.get('name')?.errors?.['minlength']">
+                    Nombre debe tener mínimo 5 caracteres!
+                </div>
+                <div *ngIf="productForm.get('name')?.errors?.['maxlength']">
+                    Nombre debe tener máximo 100 caracteres!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="description">Descripción *</label>
+            <input
+                type="text"
+                id="description"
+                formControlName="description"
+                [class.error]="isFieldInvalid('description')"
+                maxlength="200"
+                placeholder="Escriba descripción"
+            />
+            <div class="error-message" *ngIf="isFieldInvalid('description')">
+                <div
+                    *ngIf="productForm.get('description')?.errors?.['required']"
+                >
+                    Este campo es requerido!
+                </div>
+                <div
+                    *ngIf="productForm.get('description')?.errors?.['minlength']"
+                >
+                    Descripción debe tener mínimo 10 caracteres!
+                </div>
+                <div
+                    *ngIf="productForm.get('description')?.errors?.['maxlength']"
+                >
+                    Descripción debe tener máximo 200 caracteres!
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="logo">Logo *</label>
+            <input
+                type="url"
+                id="logo"
+                formControlName="logo"
+                [class.error]="isFieldInvalid('logo')"
+                placeholder="Escriba el logo"
+            />
+            <div class="error-message" *ngIf="isFieldInvalid('logo')">
+                <div *ngIf="productForm.get('logo')?.errors?.['required']">
+                    Este campo es requerido!
+                </div>
+                <div *ngIf="productForm.get('logo')?.errors?.['invalidUrl']">
+                    Debe ser una URL válida!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="date_release">Fecha Liberación *</label>
+            <input
+                type="date"
+                id="date_release"
+                formControlName="date_release"
+                [class.error]="isFieldInvalid('date_release')"
+                (change)="onReleaseDateChange()"
+            />
+            <div class="error-message" *ngIf="isFieldInvalid('date_release')">
+                <div
+                    *ngIf="productForm.get('date_release')?.errors?.['required']"
+                >
+                    Este campo es requerido!
+                </div>
+                <div
+                    *ngIf="productForm.get('date_release')?.errors?.['minDate']"
+                >
+                    La fecha debe ser igual o mayor a la fecha actual!
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="date_revision">Fecha Revisión *</label>
+            <input
+                type="date"
+                id="date_revision"
+                formControlName="date_revision"
+                [class.error]="isFieldInvalid('date_revision')"
+                readonly
+            />
+            <div class="error-message" *ngIf="isFieldInvalid('date_revision')">
+                <div
+                    *ngIf="productForm.get('date_revision')?.errors?.['required']"
+                >
+                    Este campo es requerido!
+                </div>
+                <div
+                    *ngIf="productForm.get('date_revision')?.errors?.['dateRevision']"
+                >
+                    La fecha debe ser exactamente un año posterior a la fecha de
+                    liberación!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="onReset()">
+            Reiniciar
+        </button>
+        <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="productForm.invalid || isSubmitting"
+        >
+            {{ isEditMode ? "Actualizar" : "Enviar" }}
+        </button>
+    </div>
+</form>

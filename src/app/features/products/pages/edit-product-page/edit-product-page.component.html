@@ -1,1 +1,17 @@
-<p>edit-product-page works!</p>,
+<div class="edit-product-page">
+    <div class="page-container">
+        <h1>Formulario de Edición</h1>
+        <div *ngIf="isLoading" class="loading">Cargando producto...</div>
+        <app-product-form
+            *ngIf="!isLoading && product"
+            [isEditMode]="true"
+            [initialData]="product"
+            (save)="onSave($event)"
+            (cancel)="onCancel()"
+        >
+        </app-product-form>
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+        </div>
+    </div>
+</div>

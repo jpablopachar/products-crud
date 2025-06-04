@@ -1,82 +1,82 @@
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 16px;
 
-  .modal-content {
-    background: white;
-    border-radius: var(--radius-lg);
-    max-width: 400px;
-    width: 100%;
-    box-shadow: var(--shadow-lg);
-    animation: modalSlideIn 0.2s ease-out;
+    .modal-content {
+        background: white;
+        border-radius: var(--radius-lg);
+        max-width: 400px;
+        width: 100%;
+        box-shadow: var(--shadow-lg);
+        animation: modalSlideIn 0.2s ease-out;
 
-    .modal-body {
-      padding: 24px 24px 16px;
+        .modal-body {
+            padding: 24px 24px 16px;
 
-      p {
-        margin: 0;
-        font-size: 16px;
-        color: var(--text-primary);
-        line-height: 1.5;
-      }
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 12px;
-      padding: 16px 24px 24px;
-      justify-content: flex-end;
-
-      .btn {
-        min-width: 80px;
-      }
-
-      .btn-primary {
-        background-color: var(--yellow-primary);
-        color: var(--text-primary);
-        border-color: var(--yellow-primary);
-
-        &:hover {
-          background-color: #f59e0b;
-          border-color: #f59e0b;
+            p {
+                margin: 0;
+                font-size: 16px;
+                color: var(--text-primary);
+                line-height: 1.5;
+            }
         }
-      }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            padding: 16px 24px 24px;
+            justify-content: flex-end;
+
+            .btn {
+                min-width: 80px;
+            }
+
+            .btn-primary {
+                background-color: var(--yellow-primary);
+                color: var(--text-primary);
+                border-color: var(--yellow-primary);
+
+                &:hover {
+                    background-color: #f59e0b;
+                    border-color: #f59e0b;
+                }
+            }
+        }
     }
-  }
 }
 
 @keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 @media (max-width: 480px) {
-  .modal-overlay {
-    .modal-content {
-      margin: 16px;
+    .modal-overlay {
+        .modal-content {
+            margin: 16px;
 
-      .modal-actions {
-        flex-direction: column;
+            .modal-actions {
+                flex-direction: column;
 
-        .btn {
-          width: 100%;
+                .btn {
+                    width: 100%;
+                }
+            }
         }
-      }
     }
-  }
 }

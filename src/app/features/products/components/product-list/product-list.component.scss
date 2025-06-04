@@ -1,3 +1,147 @@
-:host {
-  display: block;
+.product-list {
+    .table-container {
+        overflow: visible;
+    }
+
+    .products-table {
+        width: 100%;
+
+        th {
+            position: relative;
+
+            .info-icon {
+                margin-left: 4px;
+                color: var(--text-light);
+                vertical-align: middle;
+            }
+        }
+
+        .logo-container {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .product-logo {
+                width: 32px;
+                height: 32px;
+                object-fit: contain;
+                border-radius: var(--radius-sm);
+            }
+        }
+
+        .actions-dropdown {
+            position: relative;
+
+            .dropdown-trigger {
+                background: none;
+                border: none;
+                padding: 8px;
+                cursor: pointer;
+                border-radius: var(--radius-sm);
+                color: var(--text-secondary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:hover {
+                    background-color: var(--background-secondary);
+                    color: var(--text-primary);
+                }
+            }
+
+            .dropdown-menu {
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background: white;
+                border: 1px solid var(--border-color);
+                border-radius: var(--radius-md);
+                box-shadow: var(--shadow-lg);
+                min-width: 120px;
+                z-index: 1000;
+                overflow: hidden;
+                margin-top: 4px;
+
+                .dropdown-item {
+                    display: block;
+                    width: 100%;
+                    padding: 12px 16px;
+                    text-align: left;
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    font-size: 14px;
+                    color: var(--text-primary);
+                    transition: background-color 0.15s ease;
+
+                    &:hover {
+                        background-color: var(--background-secondary);
+                    }
+
+                    &:first-child {
+                        border-top-left-radius: var(--radius-md);
+                        border-top-right-radius: var(--radius-md);
+                    }
+
+                    &:last-child {
+                        border-bottom-left-radius: var(--radius-md);
+                        border-bottom-right-radius: var(--radius-md);
+                    }
+
+                    &.delete {
+                        color: var(--danger-color);
+
+                        &:hover {
+                            background-color: #fef2f2;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .table-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 24px;
+        border-top: 1px solid var(--border-color);
+        background-color: var(--background-secondary);
+
+        .results-info {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .pagination-controls {
+            .items-per-page-select {
+                padding: 4px 8px;
+                border: 1px solid var(--border-color);
+                border-radius: var(--radius-sm);
+                font-size: 14px;
+                background: white;
+
+                &:focus {
+                    outline: none;
+                    border-color: var(--primary-color);
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .product-list {
+        .table-footer {
+            flex-direction: column;
+            gap: 12px;
+            align-items: stretch;
+
+            .pagination-controls {
+                text-align: center;
+            }
+        }
+    }
 }

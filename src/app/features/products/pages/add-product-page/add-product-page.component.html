@@ -1,1 +1,14 @@
-<p>add-product-page works!</p>,
+<div class="add-product-page">
+    <div class="page-container">
+        <h1>Formulario de Registro</h1>
+        <app-product-form
+            [isEditMode]="false"
+            (save)="onSave($event)"
+            (cancel)="onCancel()"
+        >
+        </app-product-form>
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+        </div>
+    </div>
+</div>

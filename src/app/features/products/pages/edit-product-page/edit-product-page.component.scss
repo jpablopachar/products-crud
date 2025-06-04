@@ -1,3 +1,106 @@
-:host {
-  display: block;
+.product-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 32px;
+    background: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 24px;
+
+        &:last-of-type {
+            margin-bottom: 32px;
+        }
+    }
+
+    .form-group {
+        label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        input {
+            &.error {
+                border-color: var(--danger-color);
+
+                &:focus {
+                    border-color: var(--danger-color);
+                    box-shadow: 0 0 0 3px rgb(239 68 68 / 0.1);
+                }
+            }
+        }
+
+        .error-message {
+            margin-top: 4px;
+            font-size: 12px;
+            color: var(--danger-color);
+
+            div {
+                margin-bottom: 2px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 16px;
+        margin-top: 32px;
+
+        .btn {
+            min-width: 100px;
+        }
+    }
+}
+
+.add-product-page,
+.edit-product-page {
+    .page-container {
+        h1 {
+            text-align: center;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .error-message {
+            margin-top: 24px;
+            padding: 12px 16px;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: var(--radius-md);
+            color: var(--danger-color);
+            font-size: 14px;
+            text-align: center;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .product-form {
+        padding: 24px;
+
+        .form-row {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+
+            .btn {
+                width: 100%;
+            }
+        }
+    }
 }
