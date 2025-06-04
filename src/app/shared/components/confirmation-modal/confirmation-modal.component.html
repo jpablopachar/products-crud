@@ -1,1 +1,15 @@
-<p>confirmation-modal works!</p>,
+<div class="modal-overlay" (click)="onCancel()" *ngIf="isVisible">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-body">
+            <p>{{ message }}</p>
+        </div>
+        <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" (click)="onCancel()">
+            Cancelar
+            </button>
+            <button type="button" class="btn btn-primary" (click)="onConfirm()">
+            Eliminar
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,22 @@
-<p>loading-skeleton works!</p>,
+<div class="skeleton-container">
+    <div class="skeleton-search"></div>
+    <div class="skeleton-table">
+        <div class="skeleton-header">
+            <div class="skeleton-cell skeleton-logo"></div>
+            <div class="skeleton-cell skeleton-name"></div>
+            <div class="skeleton-cell skeleton-description"></div>
+            <div class="skeleton-cell skeleton-date"></div>
+            <div class="skeleton-cell skeleton-date"></div>
+            <div class="skeleton-cell skeleton-actions"></div>
+        </div>
+        <div class="skeleton-row" *ngFor="let item of skeletonItems">
+            <div class="skeleton-cell skeleton-logo"></div>
+            <div class="skeleton-cell skeleton-name"></div>
+            <div class="skeleton-cell skeleton-description"></div>
+            <div class="skeleton-cell skeleton-date"></div>
+            <div class="skeleton-cell skeleton-date"></div>
+            <div class="skeleton-cell skeleton-actions"></div>
+        </div>
+    </div>
+    <div class="skeleton-pagination"></div>
+</div>

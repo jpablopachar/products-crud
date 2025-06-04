@@ -1,3 +1,109 @@
-:host {
-  display: block;
+.skeleton-container {
+  background: white;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+
+  .skeleton-search {
+    height: 40px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    margin: 24px;
+    border-radius: var(--radius-sm);
+  }
+
+  .skeleton-table {
+    .skeleton-header,
+    .skeleton-row {
+      display: grid;
+      grid-template-columns: 60px 1fr 1fr 120px 120px 60px;
+      gap: 12px;
+      padding: 12px 24px;
+
+      .skeleton-cell {
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+        border-radius: var(--radius-sm);
+
+        &.skeleton-logo {
+          height: 32px;
+          width: 32px;
+        }
+
+        &.skeleton-name {
+          height: 16px;
+        }
+
+        &.skeleton-description {
+          height: 16px;
+        }
+
+        &.skeleton-date {
+          height: 16px;
+        }
+
+        &.skeleton-actions {
+          height: 16px;
+          width: 16px;
+        }
+      }
+    }
+
+    .skeleton-header {
+      background-color: var(--background-secondary);
+      border-bottom: 1px solid var(--border-color);
+
+      .skeleton-cell {
+        height: 14px;
+      }
+    }
+
+    .skeleton-row {
+      border-bottom: 1px solid var(--border-color);
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .skeleton-pagination {
+    height: 60px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-top: 1px solid var(--border-color);
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .skeleton-container {
+    .skeleton-table {
+      .skeleton-header,
+      .skeleton-row {
+        grid-template-columns: 50px 1fr 100px 50px;
+
+        .skeleton-cell:nth-child(3),
+        .skeleton-cell:nth-child(4) {
+          display: none;
+        }
+      }
+    }
+  }
 }
